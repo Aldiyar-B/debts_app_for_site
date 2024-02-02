@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Your Page Title</title>
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<h3>Товар</h3>
+		<div class="forms" id="productForms">
+			<!-- Initial form for adding products -->
+			<!-- Initial form for adding products -->
+			<div class="form">
+				<form>
+					<label for="productName">Наименование товара</label>
+					<input type="text" name="productName">
+					<label for="quantity">Количество </label>
+					<input type="text" name="quantity" pattern="\d+" title="Введите положительное число" required
+						oninput="validateInput(this); recalculateTotalAmount()">
+					<div class="error" id="quantityError"></div>
+					<label for="price">Цена</label>
+					<input type="text" name="price" pattern="\d+(\.\d{1,2})?" title="Введите положительное число"
+						required oninput="validateInput(this); recalculateTotalAmount()">
+					<label for="total">Сумма</label>
+					<input type="text" name="total" readonly>
+					<div class="error" id="priceError"></div>
+
+
+
+
+				</form>
+			</div>
+
+		</div>
+		<button type="button" class="add-button" onclick="addProduct()">
+			<svg width="16" height="16" class="text-gray-800 dark:text-white" aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="vertical-align: middle;">
+				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+					d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.3L19 7H7.3" />
+			</svg>
+			Добавить товар
+		</button>
+		<div class="combined-section">
+			<div class="total-section">
+				<h4>Итого:</h4>
+				<p>Общая сумма товаров: <span id="totalAmount">0</span></p>
+				<div>
+					<label for="initialPaymentInput">Первоначальный взнос:</label>
+					<input type="number" id="initialPaymentInput" min="0" step="0.01"
+						oninput="validateInput(this); recalculateTotalAmount()">
+					<div class="error" id="initialPaymentError"></div>
+				</div>
+				<p>Сумма долга: <span id="debtAmount">0</span></p>
+
+				<!-- Добавлен элемент для отображения первоначального взноса -->
+				<p>Первоначальный взнос: <span id="initialPayment">0</span></p>
+
+				<div id="debtError" class="error" style="color: red; display: none;">Сумма долга не может быть меньше 0
+				</div>
+			</div>
+			<!-- Добавлен раздел "Условия погашения" -->
+			<div class="repayment-conditions">
+				<h4>Условия погашения</h4>
+
+				<p>Интервал между платежами:</p>
+				<!-- Ряд с кнопками "Неделя/2 недели/Месяц" -->
+				<div class="interval-buttons">
+					<button type="button" onclick="setRepaymentInterval('week')">Неделя</button>
+					<button type="button" onclick="setRepaymentInterval('two-weeks')">2 недели</button>
+					<button type="button" onclick="setRepaymentInterval('month')">Месяц</button>
+				</div>
+
+				<!-- Поле для выбора даты погашения -->
+				<div class="repayment-dates-container" id="repaymentDatesContainer">
+					<label for="repaymentDate">Даты погашения:</label>
+					<div class="repayment__dates">
+
+						<div class="repayment-date">
+							<input type="date" class="repaymentDateInput" onchange="calculateRepaymentAmount()">
+						</div>
+						<div class="repayment-date">
+							<input type="date" class="repaymentDateInput" onchange="calculateRepaymentAmount()">
+						</div>
+						<div class="repayment-date">
+							<input type="date" class="repaymentDateInput" onchange="calculateRepaymentAmount()">
+						</div>
+					</div>
+				</div>
+
+				<button type="button" onclick="addRepaymentDate()">
+					<svg width="16" height="16" class="w-[12px] h-[12px] text-gray-800 dark:text-white"
+						aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						style="vertical-align: middle;">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+							d="M4 10h16M8 14h8m-4-7V4M7 7V4m10 3V4M5 20h14c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1H5a1 1 0 0 0-1 1v12c0 .6.4 1 1 1Z" />
+					</svg>
+
+
+					Добавить дату</button>
+
+			</div>
+		</div>
+		<div class="btn-last">
+			<button type="button" class="button-green" onclick="sellOnCredit()" id="sellOnCreditButton">
+				<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+					style="vertical-align: middle;">
+					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+					<g id="SVGRepo_iconCarrier">
+						<path
+							d="M21 5L19 12H7.37671M20 16H8L6 3H3M11 6L13 8L17 4M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
+							stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+				</svg>
+				Продать товар в долг на сумму <span id="sellDebtAmountConditions">0</span>
+			</button>
+		</div>
+
+	</div>
+
+
+	<script src="index.js"></script>
+
+</body>
+
+</html>

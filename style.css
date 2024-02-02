@@ -1,0 +1,170 @@
+body {
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+}
+
+.wrapper {
+	max-width: 1450px;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+	margin-top: 0;
+}
+
+/* Стили для мобильных устройств */
+
+.forms {
+	/* margin-bottom: 20px; */
+}
+
+.form {
+	/* margin-bottom: 15px; */
+	display: flex;
+	flex-direction: column; /* Изменение на столбец для мобильных устройств */
+	/* padding: 20px; */
+}
+
+form {
+	display: flex;
+	gap: 20px;
+	/* padding: 0px; */
+	/* margin-bottom: 0px; */
+}
+
+label {
+	margin-bottom: 35px;
+}
+
+input {
+	/* max-width: 100%;  */
+	/* Адаптация ширины input для мобильных устройств */
+	max-width: 100px;
+	min-width: 50px;
+	height: 35px;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+button {
+	background-color: #ffffff;
+	color: #0d6efd;
+	border: 1px solid #0d6efd;
+	max-width: 150px;
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	margin-bottom: 15px;
+}
+.remove-button {
+	border: none;
+}
+.remove-button:hover {
+	background-color: rgb(230, 230, 230);
+	transition: 0.2s;
+}
+button:hover {
+	color: white;
+	background-color: #3273d6;
+	transition: 0.2s;
+}
+
+.total-section {
+	margin-right: 80px;
+}
+.combined-section {
+	display: flex;
+	border-top: 2px solid #ddd;
+	padding-top: 20px;
+}
+.error {
+	color: #ff0000;
+	font-size: 14px;
+}
+
+.interval-buttons {
+	display: flex;
+	gap: 10px;
+}
+.interval-buttons button:hover {
+	background-color: #0d6efd;
+	color: white;
+}
+.interval-buttons button:active,
+.interval-buttons button:focus {
+	background-color: #0d6efd;
+	color: white;
+}
+
+.repayment-date {
+	margin-bottom: 5px;
+}
+.repayment__dates {
+	margin-top: 20px;
+}
+.popup {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 15px;
+	background-color: #d1e7dd;
+	border: 1px solid #146c43;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	color: #146c43;
+}
+
+.button-green {
+	max-width: 200px;
+}
+
+@media screen and (max-width: 768px) {
+	.wrapper {
+		max-width: 768px;
+	}
+	.form {
+		padding: 10px; /* Уменьшение отступов для форм на мобильных устройствах */
+	}
+
+	form {
+		flex-direction: column; /* Изменение на столбец для мобильных устройств */
+		gap: 5px;
+	}
+	label {
+		margin-bottom: 0px;
+	}
+
+	input,
+	button {
+		max-width: 80px;
+		min-width: 50px;
+	}
+
+	button {
+		max-width: none; /* Сброс максимальной ширины для кнопок */
+	}
+	.combined-section {
+		display: block;
+	}
+}
+.new-text-content {
+	font-size: 20px;
+	text-align: center;
+	max-width: 650px;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
